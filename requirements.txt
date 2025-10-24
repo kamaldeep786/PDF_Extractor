@@ -1,6 +1,9 @@
 streamlit
 pdfplumber
 camelot-py
+fitz
+pymupdf
 pandas
 openpyxl
-PyMuPDF
+pytesseract
+Pillow
