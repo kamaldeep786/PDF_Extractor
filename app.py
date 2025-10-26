@@ -1,3 +1,13 @@
+# -------------------------------
+# 📘 Advanced PDF Text & Table Extractor (with OCR)
+# Description: 
+# Streamlit web app that extracts text and tables from PDFs.
+# It supports both native (digital) PDFs and scanned PDFs (via OCR).
+# Author: [Your Name]
+# Version: 1.0
+# -------------------------------
+
+# --- Import necessary libraries ---
 import streamlit as st
 import pdfplumber
 import fitz  # PyMuPDF
@@ -9,24 +19,28 @@ import io
 import tempfile
 import os
 
+# --- Streamlit page setup ---
 st.set_page_config(page_title="Advanced PDF Extractor", layout="wide")
 
 st.title("📘 Advanced PDF Text & Table Extractor (with OCR)")
 
+# --- File uploader widget ---
 uploaded_file = st.file_uploader("📤 Upload your PDF file", type=["pdf"])
 
+# Proceed only if user uploads a file
 if uploaded_file:
     st.success("✅ File uploaded successfully!")
 
-    # Save uploaded file temporarily
+    # --- Save uploaded file temporarily ---
+    # Using NamedTemporaryFile ensures a unique file name
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
         tmp_file.write(uploaded_file.read())
         tmp_path = tmp_file.name
-
-    text_content = ""
-    ocr_text_content = ""
-    extracted_tables = []
-
+# Initialize containers for extracted content
+    text_content = "" # For native text
+    ocr_text_content = "" # For OCR text (if scanned PDF)
+    extracted_tables = [] # For storing table data
+ # --- Main extraction block ---
     with st.spinner("🔍 Extracting data from PDF..."):
         # --- Step 1: Extract text (try native text first)
         try:
